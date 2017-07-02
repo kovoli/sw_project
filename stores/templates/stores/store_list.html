@@ -1,0 +1,72 @@
+{% extends 'index.html' %}
+{% block title %}
+    Блог - {{ block.super }}
+{% endblock %}
+{% block content %}
+<main id="mainContent" class="main-content">
+    <!-- Page Container -->
+    <div class="page-container ptb-60">
+        <div class="container">
+            <section class="stores-area stores-area-v1">
+                <h3 class="mb-40 t-uppercase">Список всех магазинов со скидками</h3>
+
+                <div class="row row-rl-15 row-tb-15 t-center">
+                    {% for store in stores %}
+                    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                        <a href="#" class="panel is-block">
+                            <div class="embed-responsive embed-responsive-4by3">
+                                <div class="store-logo">
+                                    <img src="{% if store.image %}{{ store.image_store.url }}{% endif %}" alt="{{ store.title }}">
+                                </div>
+                            </div>
+                            <h6 class="store-name ptb-10">{{ store.title }}</h6>
+                        </a>
+                    </div>
+                {% endfor %}
+                </div>
+
+                <div class="page-pagination text-center mt-30 p-10 panel">
+                    <nav>
+                        <!-- Page Pagination -->
+                        <ul class="page-pagination">
+            {% if stores.has_previous %}
+            <li>
+                <a class="page-numbers previous" href="?page={{ stores.previous_page_number }}"><</a>
+            </li>
+            {% endif %}
+            {% for i in stores.paginator.page_range %}
+                {% if stores.number == i %}
+                    <li><span class="page-numbers current">{{ i }}</span></li>
+                {% else %}
+                    <!-- For the 1st page we do not use ?page=1 -->
+                    {% if i == 1 %}
+                        <li><a href="?page={{ i }}" class="page-numbers ">{{ i }}</a></li>
+
+                    {% else %}
+                        <!-- Show current page and +-3 pages -->
+                        {% if i|add:"-3" <= stores.number and stores.number <= i|add:"3" %}
+                            <li><a href="?page={{ i }}" class="page-numbers ">{{ i }}</a></li>
+
+                        <!-- Shows every 10th page and the last page -->
+                        {% elif i|divisibleby:"10" or i == stores.paginator.num_pages %}
+                            <li><a href="?page={{ i }}" class="page-numbers ">{{ i }}</a></li>
+                        {% endif %}
+
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            {% if stores.has_next %}
+                <li><a href="?page={{ stores.next_page_number }}" class="page-numbers next">></a></li>
+            {% endif %}
+        </ul>
+                        <!-- End Page Pagination -->
+                    </nav>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- End Page Container -->
+
+
+</main>
+{% endblock %}

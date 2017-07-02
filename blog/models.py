@@ -74,6 +74,10 @@ class Post(models.Model):
                                 processors=[ResizeToFill(80, 80)],
                                 format='JPEG',
                                 options={'quality': 50})
+    image_list = ImageSpecField(source='image',
+                                   processors=[ResizeToFill(313, 242)],
+                                   format='JPEG',
+                                   options={'quality': 50})
 
     def save(self, *args, **kwargs):
         if not self.slug:

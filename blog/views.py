@@ -30,6 +30,15 @@ def post_list(request, category_slug=None, tag_slug=None):
                                                    'tag': tag})
 
 
+def search(request):
+    if 'q' in request.GET:
+        q = request.GET['q']
+        post_list = Post.objects.filter(title__icontains=q)
+        posts = helpers.pg_records(request, post_list, 2)
+
+        return render(request, 'blog/post/search.html', {'posts': posts, 'q': q})
+
+
 def post_detail(request, post):
     post = get_object_or_404(Post, slug=post)
 
@@ -40,3 +49,6 @@ def post_detail(request, post):
 
     return render(request,'blog/post/detail.html', {'post': post,
                                                     'similar_posts': similar_posts})
+
+
+

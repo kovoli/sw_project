@@ -13,20 +13,7 @@
                     <!-- Blog Area -->
 
 <section class="blog-area blog-classic">
-{% if category %}
-    <div class="row row-tb-20">
-        <div class="blog-post col-xs-12">
-            <h2>Все записи из категории - {{ category.name }}</h2>
-        </div>
-    </div>
-{% elif tag %}
-    <div class="row row-tb-20">
-    <div class="blog-post col-xs-12">
-        <h2>Все записи с тэгом - {{ tag.name }}</h2>
-    </div>
 
-</div>
-{% endif %}
 <div class="row row-tb-20">
 {% for post in posts %}
     <!-- Blog Post -->
@@ -66,11 +53,10 @@
     </div>
 {% empty %}
 
-
 <div class="blog-post col-xs-12">
-
-        <p>Записей нет</p>
-
+    <article class="entry panel">
+        <h6>Записей нет</h6>
+    </article>
 </div>
 {% endfor %}
 </div>
@@ -83,7 +69,7 @@
         <ul class="page-pagination">
             {% if posts.has_previous %}
             <li>
-                <a class="page-numbers previous" href="?page={{ posts.previous_page_number }}"><</a>
+                <a class="page-numbers previous" href="?q={{ q }}&page={{ posts.previous_page_number }}"><</a>
             </li>
             {% endif %}
             {% for i in posts.paginator.page_range %}
@@ -92,23 +78,23 @@
                 {% else %}
                     <!-- For the 1st page we do not use ?page=1 -->
                     {% if i == 1 %}
-                        <li><a href="?page={{ i }}" class="page-numbers ">{{ i }}</a></li>
+                        <li><a href="?q={{ q }}&page={{ i }}" class="page-numbers ">{{ i }}</a></li>
 
                     {% else %}
                         <!-- Show current page and +-3 pages -->
                         {% if i|add:"-3" <= posts.number and posts.number <= i|add:"3" %}
-                            <li><a href="?page={{ i }}" class="page-numbers ">{{ i }}</a></li>
+                            <li><a href="?q={{ q }}&page={{ i }}" class="page-numbers ">{{ i }}</a></li>
 
                         <!-- Shows every 10th page and the last page -->
                         {% elif i|divisibleby:"10" or i == posts.paginator.num_pages %}
-                            <li><a href="?page={{ i }}" class="page-numbers ">{{ i }}</a></li>
+                            <li><a href="?q={{ q }}&page={{ i }}" class="page-numbers ">{{ i }}</a></li>
                         {% endif %}
 
                     {% endif %}
                 {% endif %}
             {% endfor %}
             {% if posts.has_next %}
-                <li><a href="?page={{ posts.next_page_number }}" class="page-numbers next">></a></li>
+                <li><a href="?q={{ q }}&page={{ posts.next_page_number }}" class="page-numbers next">></a></li>
             {% endif %}
         </ul>
         <!-- End Page Pagination -->
