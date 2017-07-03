@@ -58,8 +58,8 @@
     <link href="assets/vendors/linearicons/css/linearicons.css" rel="stylesheet">
 
     <!-- Owl Carousel -->
-    <link href="assets/vendors/owl-carousel/owl.carousel.min.css" rel="stylesheet">
-    <link href="assets/vendors/owl-carousel/owl.theme.min.css" rel="stylesheet">
+    <link href="{% static 'css/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/owl.theme.min.css' %}owl.theme.min.css" rel="stylesheet">
 
     <!-- Flex Slider -->
     <link href="assets/vendors/flexslider/flexslider.css" rel="stylesheet">
@@ -179,7 +179,7 @@
                         <div id="header-navbar" class="nav-collapse">
                             <ul class="nav-menu">
                                 <li class="active">
-                                    <a href="index-2.html">Home</a>
+                                    <a href="{% url 'home' %}">Home</a>
                                 </li>
                                 <li class="dropdown-mega-menu">
                                     <a href="deals_grid.html">Deals</a>
@@ -269,8 +269,8 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="stores_01.html">Stores</a>
-                                    <ul>
+                                    <a href="{% url 'store:store_list' %}">Stores</a>
+                                    <!--<ul>
                                         <li><a href="stores_01.html">Stores Search</a>
                                         </li>
                                         <li><a href="stores_02.html">Stores Categories</a>
@@ -279,7 +279,7 @@
                                         </li>
                                         <li><a href="store_single_02.html">Store Single 2</a>
                                         </li>
-                                    </ul>
+                                    </ul>-->
                                 </li>
                                 <li>
                                     <a href="contact_us_01.html">Contact Us</a>

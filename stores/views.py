@@ -14,3 +14,9 @@ def store_detail(request, store):
     store = get_object_or_404(Store, slug=store)
 
     return render(request, 'stores/store_detail.html', {'store': store})
+
+
+def store_list(request):
+    stores = Store.objects.all().order_by('title')
+
+    return render(request, 'content.html', {'stores': stores})
