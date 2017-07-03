@@ -11,9 +11,13 @@ class Store(models.Model):
     content = models.TextField()
     image = models.ImageField(upload_to='store_image/%Y/%m/', blank=True)
     image_store = ImageSpecField(source='image',
-                                processors=[ResizeToFill(82.5, 82.5)],
+                                processors=[ResizeToFill(200, 200)],
                                 format='JPEG',
                                 options={'quality': 50})
+    img_single_store = ImageSpecField(source='image',
+                                      processors=[ResizeToFill(200, 100)],
+                                      format='JPEG',
+                                      options={'quality': 50})
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -24,7 +28,7 @@ class Store(models.Model):
         return self.title
     
     def get_absolute_url(self):
-        return reverse('blog:posts_by_category', args=[self.slug])
+        return reverse('store:store_detail', args=[self.slug])
 
     class Meta:
         verbose_name = 'Магазин'
